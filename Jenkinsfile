@@ -36,7 +36,7 @@ pipeline {
         sh "npm run build"
       }
     }
-    stage('docker build new'){
+    stage('docker build'){
       environment {
         COMMIT_TAG = sh(returnStdout: true, script: 'git rev-parse HEAD').trim().take(7)
         BUILD_IMAGE_REPO_TAG = "${params.IMAGE_REPO_NAME}:${env.BUILD_TAG}"
