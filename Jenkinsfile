@@ -59,7 +59,8 @@ pipeline {
         COMMIT_TAG = sh(returnStdout: true, script: 'git rev-parse HEAD').trim().take(7)
         BUILD_IMAGE_REPO_TAG = "${params.IMAGE_REPO_NAME}:${env.BUILD_TAG}"
       }
-      script{
+     steps{
+	      script{
 	docker.withRegistry('https://hub.docker.com/u/b96wang/', 'docker-registery') {
 		sh "docker push $BUILD_IMAGE_REPO_TAG"
 		sh "docker push ${params.IMAGE_REPO_NAME}:$COMMIT_TAG"
@@ -67,7 +68,8 @@ pipeline {
 		sh "docker push ${params.IMAGE_REPO_NAME}:${params.LATEST_BUILD_TAG}"
 		sh "docker push ${params.IMAGE_REPO_NAME}:$BRANCH_NAME-latest"
         }
-      }
+      }     
+     }
     }
     stage('Remove Previous Stack'){
       when{
