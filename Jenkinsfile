@@ -61,7 +61,7 @@ pipeline {
       }
      steps{
 	      script{
-	docker.withRegistry('https://hub.docker.com/u/b96wang/', 'docker-registery') {
+	docker.withRegistry('https://hub.docker.com/u/b96wang/') {
 		sh "docker push $BUILD_IMAGE_REPO_TAG"
 		sh "docker push ${params.IMAGE_REPO_NAME}:$COMMIT_TAG"
 		sh "docker push ${params.IMAGE_REPO_NAME}:${readJSON(file: 'package.json').version}"
